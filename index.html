@@ -1,18 +1,98 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Hello World!</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrackStack</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <h1>HTML Rocks!</h1>
-  <img src="img/compile.jpeg">
-  <script type="module" src="js/main.js"></script>
+  <!-- Shared Header -->
+  <header>
+    <div class="logo-search">
+      <img src="logo.png" alt="logo">
+      <input type="text" placeholder="Search...">
+    </div>
+    <nav>
+      <a href="index.html">home</a>
+      <a href="#">about</a>
+      <a href="browse.html">browse</a>
+      <a href="#">help</a>
+      <a href="tracklist.html" class="my-list">my list</a>
+    </nav>
+  </header>
+
+  <main class="song-detail">
+    <section class="song-overview">
+      <div class="song-image">
+        <img src="img/logo.png" alt="song cover">
+        <div class="thumbnails">
+          <img src="img/logo.png">
+          <img src="img/logo.png">
+          <img src="img/logo.png">
+        </div>
+      </div>
+      <div class="song-info">
+        <h1>song title</h1>
+        <div class="rating">★★★☆☆ 4 Reviews</div>
+        <div class="length">3:33</div>
+        <select>
+          <option>Select Model</option>
+        </select>
+        <p>Lorem ipsum dolor sit amet...</p>
+        <button>add to list</button>
+        <span>♡</span>
+      </div>
+    </section>
+
+    <section class="similar-songs">
+      <h2>similar songs</h2>
+      <div class="card-list">
+        <div class="card">
+          <p>SONG NAME</p>
+          <p>★★☆☆☆</p>
+          <p>$300</p>
+        </div>
+        <div class="card">
+          <p>SONG NAME</p>
+          <p>★★☆☆☆</p>
+          <p>$300</p>
+        </div>
+        <div class="card">
+          <p>SONG NAME</p>
+          <p>★★☆☆☆</p>
+          <p>$300</p>
+        </div>
+        <div class="card">
+          <p>SONG NAME</p>
+          <p>★★☆☆☆</p>
+          <p>$300</p>
+        </div>
+        <div class="card">
+          <p>SONG NAME</p>
+          <p>★★☆☆☆</p>
+          <p>$300</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="comments">
+      <h2>comments</h2>
+      <div class="comment">
+        <strong>John Doe</strong> <span>August 14, 2024</span>
+        <p>★★☆☆☆</p>
+        <p>Awesomeeee...</p>
+      </div>
+      <div class="comment">
+        <strong>John Doe</strong> <span>August 14, 2024</span>
+        <p>★★★☆☆</p>
+        <p>Blahhhhh...</p>
+      </div>
+    </section>
+  </main>
+
 </body>
 
 </html>
