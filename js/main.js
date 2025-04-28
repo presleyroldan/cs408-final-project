@@ -1,18 +1,41 @@
-window.onload = loaded;
-
-/**
- * Simple Function that will be run when the browser is finished loading.
- */
-function loaded() {
-    // Assign to a variable so we can set a breakpoint in the debugger!
-    const hello = sayHello();
-    console.log(hello);
-}
-
-/**
- * This function returns the string 'hello'
- * @return {string} the string hello
- */
-export function sayHello() {
-    return 'hello';
-}
+document.addEventListener("DOMContentLoaded", () => {
+    loadSongs();
+  });
+  
+  async function loadSongs() {
+    try {
+      const response = await fetch("API"); // Need to replace
+      const songs = await response.json();
+      const songList = document.getElementById("songList");
+  
+      songs.forEach(song => {
+        const card = document.createElement("div");
+        card.className = "song-card";
+        card.innerHTML = `
+          <h2>${song.title}</h2>
+          <p>${song.artist}</p>
+          <button onclick="addToList('${song.id}')">Add to List</button>
+        `;
+        songList.appendChild(card);
+      });
+    } catch (error) {
+      console.error("Error loading songs:", error);
+    }
+  }
+  
+  async function addToList(songId) {
+    try {
+      const userId = "testUser"; // Needs to be dynamic
+      const response = await fetch("API", { // Neet to set this up 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ songId, userId })
+      });
+  
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      console.error("Error adding song:", error);
+    }
+  }
+  
