@@ -109,7 +109,7 @@ main {
   gap: 60px;
 }
 
-.my-songs .song-entry {
+.my-songs .song-list {
   display: flex;
   gap: 20px;
   height: 200px;

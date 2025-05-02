@@ -1,11 +1,13 @@
 const express = require('express');
 const sequelize = require('./config');
 const Song = require('./models/Song');
-const songRoutes = require('./routes/songs');
+const songRoutes = require('./routes/song');
 
 const app = express();
 app.use(express.json());
 app.use('/api/songs', songRoutes);
+app.use(express.static('frontend'));
+
 
 // Sync DB and start server
 sequelize.sync().then(() => {

@@ -11,7 +11,8 @@ const Song = sequelize.define('Song', {
     allowNull: false
   },
   genre: DataTypes.STRING,
-  album: DataTypes.STRING
+  album: DataTypes.STRING,
+  length: DataTypes.STRING
 });
 
 module.exports = Song;

@@ -6,6 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrackStack</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .card {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      padding: 10px;
+      margin: 10px;
+      background: #1e1e1e;
+      border: 1px solid #444;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      box-sizing: border-box;
+      vertical-align: top;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background: #2c2c2c;
+    }
+
+    .card p {
+      margin: 4px 0;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+  </style>
 </head>
 
 <body>
@@ -37,10 +66,7 @@
         <h1>song title</h1>
         <div class="rating">★★★☆☆ 4 Reviews</div>
         <div class="length">3:33</div>
-        <select>
-          <option>Select Model</option>
-        </select>
-        <p>Lorem ipsum dolor sit amet...</p>
+        <p class="song-description">Lorem ipsum dolor sit amet...</p>
         <button>add to list</button>
         <span>♡</span>
       </div>
@@ -48,33 +74,7 @@
 
     <section class="similar-songs">
       <h2>similar songs</h2>
-      <div class="card-list">
-        <div class="card">
-          <p>SONG NAME</p>
-          <p>★★☆☆☆</p>
-          <p>$300</p>
-        </div>
-        <div class="card">
-          <p>SONG NAME</p>
-          <p>★★☆☆☆</p>
-          <p>$300</p>
-        </div>
-        <div class="card">
-          <p>SONG NAME</p>
-          <p>★★☆☆☆</p>
-          <p>$300</p>
-        </div>
-        <div class="card">
-          <p>SONG NAME</p>
-          <p>★★☆☆☆</p>
-          <p>$300</p>
-        </div>
-        <div class="card">
-          <p>SONG NAME</p>
-          <p>★★☆☆☆</p>
-          <p>$300</p>
-        </div>
-      </div>
+      <div class="card-list" id="similar-songs"></div>
     </section>
 
     <section class="comments">
@@ -91,7 +91,73 @@
       </div>
     </section>
   </main>
+  <script>
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
 
+    const songId = getQueryParam('songId');
+    renderSimilarSongs(songId);
+
+    if (songId) {
+      fetch(`/api/songs/${songId}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Song not found");
+          return res.json();
+        })
+        .then(data => {
+          // Populate main song info
+          document.querySelector('.song-info h1').textContent = data.title;
+          document.querySelector('.song-info .length').textContent = data.length || 'N/A';
+          document.querySelector('.song-description').textContent = data.description || 'No description available.';
+          document.querySelector('.song-image img').src = data.imageUrl || 'img/logo.png';
+
+          // Populate similar songs
+          renderSimilarSongs(songId);
+        })
+        .catch(err => {
+          document.querySelector('.song-info h1').textContent = 'Song not found';
+          console.error(err);
+        });
+    }
+
+    console.log("songId param:", songId);
+
+    function renderSimilarSongs(currentSongId) {
+      console.log("Rendering similar songs for:", currentSongId);
+      fetch('/api/songs')
+        .then(res => {
+          console.log("Fetched /api/songs, status:", res.status);
+          return res.json();
+        })
+        .then(songs => {
+          console.log("Fetched songs:", songs);
+          const container = document.getElementById('similar-songs');
+          container.innerHTML = '';
+
+          songs
+            .filter(song => !currentSongId || song.id !== currentSongId)
+            .slice(0, 5) // only keep the first 5
+            .forEach(song => {
+              const a = document.createElement('a');
+              a.className = 'card';
+              a.href = `index.html?songId=${song.id}`;
+              a.innerHTML = `
+            <p>${song.title}</p>
+            <p>${song.artist || 'Unknown Artist'}</p>
+            <p>${song.album || 'Unknown Album'}</p>
+
+          `;
+              container.appendChild(a);
+            });
+        })
+        .catch(err => {
+          console.error('Failed to load similar songs:', err);
+        });
+    }
+
+  </script>
 </body>
 
 </html>

@@ -18,8 +18,15 @@ router.post('/', async (req, res) => {
     const song = await Song.create(req.body);
     res.status(201).json(song);
   } catch (err) {
-    res.status(400).json({ error: 'Invalid song data' });
+    res.status(400).json({ error: err.message });
   }
 });
+
+router.get('/:id', async (req, res) => {
+  const song = await Song.findByPk(req.params.id);
+  if (song) res.json(song);
+  else res.status(404).send('Not found');
+});
+
 
 module.exports = router;

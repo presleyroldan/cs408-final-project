@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Track List</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
     <div class="logo-search">
-      <img src="img/logo.png" alt="logo">
-      <input type="text" placeholder="Search...">
+      <img src="img/logo.png" alt="logo" />
+      <input type="text" placeholder="Search..." />
     </div>
     <nav>
       <a href="index.html">home</a>
@@ -24,41 +24,96 @@
     <h2>track list</h2>
     <section class="my-songs">
       <h3>my songs</h3>
-      <div class="song-entry">
-        <img src="img/logo.png">
-        <div>
-          <p><strong>SONG NAME</strong></p>
-          <p>test</p>
-          <p>3:33</p>
-        </div>
-      </div>
-      <div class="song-entry">
-        <img src="img/logo.png">
-        <div>
-          <p><strong>SONG NAME</strong></p>
-          <p>test</p>
-          <p>3:33</p>
-        </div>
-      </div>
-      <button>edit</button>
+      <div class="song-list" id="songList"></div>
+      <button id="clearAll">Clear All</button>
     </section>
 
     <section class="summary">
       <h3>summary</h3>
-      <p>SONG COUNT: 2</p>
-      <p>TOTAL TIME: 7:06</p>
+      <p>SONG COUNT: 0</p>
+      <p>TOTAL TIME: 0:00</p>
     </section>
   </main>
 
+  <script>
+    function loadMyList() {
+      const list = JSON.parse(localStorage.getItem('myList')) || [];
+      const container = document.getElementById('songList');
+      container.innerHTML = '';
+
+      let totalSeconds = 0;
+
+      list.forEach(song => {
+        const songEntry = document.createElement('div');
+        songEntry.className = 'song-entry';
+
+        const img = document.createElement('img');
+        img.src = song.imageUrl || 'img/logo.png';
+        img.style.width = '150px';
+        img.style.objectFit = 'cover';
+
+        const detailsDiv = document.createElement('div');
+
+        const card = document.createElement('a');
+        card.href = `tracklist.html?songId=${song.id}`;
+        card.className = 'card';
+        card.innerHTML = `
+          <p><strong>${song.title}</strong></p>
+          <p>${song.artist}</p>
+          <p>${song.length}</p>
+        `;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Remove';
+        deleteBtn.onclick = () => {
+          const updated = list.filter(s => s.id !== song.id);
+          localStorage.setItem('myList', JSON.stringify(updated));
+          loadMyList();
+        };
+
+        detailsDiv.appendChild(card);
+        detailsDiv.appendChild(deleteBtn);
+
+        songEntry.appendChild(img);
+        songEntry.appendChild(detailsDiv);
+        container.appendChild(songEntry);
+
+        totalSeconds += getSeconds(song.length);
+      });
+
+      document.querySelector('.summary').innerHTML = `
+        <h3>summary</h3>
+        <p>SONG COUNT: ${list.length}</p>
+        <p>TOTAL TIME: ${formatTime(totalSeconds)}</p>
+      `;
+    }
+
+    function getSeconds(length) {
+      const [min, sec] = length.split(':').map(Number);
+      return min * 60 + sec;
+    }
+
+    function formatTime(secTotal) {
+      const min = Math.floor(secTotal / 60);
+      const sec = secTotal % 60;
+      return `${min}:${sec.toString().padStart(2, '0')}`;
+    }
+
+    document.getElementById('clearAll').onclick = () => {
+      localStorage.removeItem('myList');
+      loadMyList();
+    };
+
+    loadMyList();
+  </script>
+
   <footer>
     <div class="footer-left">
-      <img src="img/logo.png">
+      <img src="img/logo.png" />
       <p>1717 Harrison St, San Francisco, CA 94103, USA</p>
       <p>© trackstack</p>
     </div>
-    <div class="footer-menu">
-     
-    </div>
+    <div class="footer-menu"></div>
   </footer>
 </body>
 </html>

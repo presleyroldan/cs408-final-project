@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Pat von Student",
   "scripts": {
-    "start": "node js/main.js",
+    "start": "node backend/server.js",
     "lint:html": "htmlhint"
   },
   "devDependencies": {
@@ -21,6 +21,7 @@
     "express": "^5.1.0",
     "globalyzer": "^0.1.0",
     "globrex": "^0.1.2",
+    "node-fetch": "^3.3.2",
     "node-watch": "^0.7.3",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
