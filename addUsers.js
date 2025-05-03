@@ -15,7 +15,7 @@ const users = [
 
 async function seedUsers() {
   try {
-    await sequelize.sync(); // optional: { force: true } if starting fresh
+    await sequelize.sync(); 
     for (const user of users) {
       await User.create(user);
       console.log(`✅ Added user: ${user.username}`);

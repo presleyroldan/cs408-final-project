@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   async function loadSongs() {
     try {
-      const response = await fetch("API"); // Need to replace
+      const response = await fetch("/api/songs"); 
       const songs = await response.json();
       const songList = document.getElementById("songList");
   
@@ -25,17 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
   
   async function addToList(songId) {
     try {
-      const userId = "testUser"; // Needs to be dynamic
-      const response = await fetch("API", { // Neet to set this up 
+      const userId = 1; 
+      const response = await fetch("/tracklist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ songId, userId })
       });
   
       const result = await response.json();
-      alert(result.message);
+      alert(result.message || "Added to list!");
     } catch (error) {
       console.error("Error adding song:", error);
     }
   }
-  

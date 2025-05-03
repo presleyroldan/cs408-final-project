@@ -3,7 +3,7 @@ const sequelize = require('./config');
 const Song = require('./models/Song');
 const songRoutes = require('./routes/song');
 const User = require('./models/User');
-const userRoutes = require('./routes/users'); // add this
+const userRoutes = require('./routes/users'); 
 
 const app = express();
 app.use(express.json());

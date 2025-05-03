@@ -1,16 +1,16 @@
-const { sequelize, Song } = require('./backend/models'); // adjust path if needed
+const { sequelize, Song } = require('./backend/models'); 
 
 const topSongs = [
-  { title: 'Luther', artist: 'Artist A', album: 'Album A', genre: 'Indie', length: '3:45' },
-  { title: 'Die With A Smile', artist: 'Artist B', album: 'Album B', genre: 'Pop', length: '3:12' },
-  { title: 'NOKIA', artist: 'Artist C', album: 'Album C', genre: 'Rap', length: '2:50' },
-  { title: 'Pink Pony Club', artist: 'Artist D', album: 'Album D', genre: 'Pop', length: '4:01' },
-  { title: 'Just In Case', artist: 'Artist E', album: 'Album E', genre: 'R&B', length: '3:27' },
-  { title: '30 For 30', artist: 'Artist F', album: 'Album F', genre: 'Hip-Hop', length: '3:59' },
-  { title: 'All The Way', artist: 'Artist G', album: 'Album G', genre: 'Pop', length: '3:20' },
-  { title: 'Ordinary', artist: 'Artist H', album: 'Album H', genre: 'Alt', length: '2:58' },
-  { title: 'Gimme A Hug', artist: 'Artist I', album: 'Album I', genre: 'Indie', length: '3:33' },
-  { title: 'Smile', artist: 'Artist J', album: 'Album J', genre: 'Pop', length: '3:05' }
+  { title: 'Luther', artist: 'Jean Dawson', album: 'CHAOS NOW', genre: 'Alternative', length: '2:57' },
+  { title: 'Die With A Smile', artist: 'HUNNY', album: 'Homesick', genre: 'Indie Rock', length: '3:02' },
+  { title: 'NOKIA', artist: 'Jean Dawson', album: 'CHAOS NOW*', genre: 'Alternative', length: '2:45' },
+  { title: 'Pink Pony Club', artist: 'Chappell Roan', album: 'The Rise and Fall of a Midwest Princess', genre: 'Pop', length: '4:01' },
+  { title: 'Just In Case', artist: 'Duckwrth', album: 'Chrome Bull', genre: 'Hip-Hop', length: '3:28' },
+  { title: '30 For 30', artist: 'Drake', album: 'What A Time To Be Alive', genre: 'Rap', length: '4:13' },
+  { title: 'All The Way', artist: 'Timeflies', album: 'Just for Fun', genre: 'Pop', length: '3:28' },
+  { title: 'Ordinary', artist: 'Umi', album: 'Forest in the City', genre: 'R&B/Soul', length: '3:18' },
+  { title: 'Gimme A Hug', artist: 'Coach Party', album: 'Killjoy', genre: 'Alt Rock', length: '2:50' },
+  { title: 'Smile', artist: 'Wolf Alice', album: 'Blue Weekend', genre: 'Rock', length: '3:15' }
 ];
 
 async function addSongs() {
