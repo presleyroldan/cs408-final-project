@@ -1,18 +1,11 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config');
+module.exports = (sequelize, DataTypes) => {
+  const Song = sequelize.define('Song', {
+    title: DataTypes.STRING,
+    artist: DataTypes.STRING,
+    album: DataTypes.STRING,
+    genre: DataTypes.STRING,
+    length: DataTypes.STRING
+  });
 
-const Song = sequelize.define('Song', {
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  artist: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  genre: DataTypes.STRING,
-  album: DataTypes.STRING,
-  length: DataTypes.STRING
-});
-
-module.exports = Song;
+  return Song;
+};

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Song = require('../models/Song');
+const { Song } = require('../models');
 
 // GET all songs
 router.get('/', async (req, res) => {
   try {
     const songs = await Song.findAll();
+    console.log('🎵 Fetched songs:', songs.length);
     res.json(songs);
   } catch (err) {
+    console.error('❌ Song fetch error:', err);
     res.status(500).json({ error: 'Could not fetch songs' });
   }
 });
