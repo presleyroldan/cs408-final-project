@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Track List</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
   <header>
     <div class="logo-search">
@@ -25,9 +27,11 @@
     <section class="my-songs">
       <h3>my songs</h3>
       <div class="song-list" id="songList"></div>
-      <button id="clearAll">Clear All</button>
     </section>
 
+    
+    <button id="clearAll">Clear All</button>
+    
     <section class="summary">
       <h3>summary</h3>
       <p>SONG COUNT: 0</p>
@@ -36,56 +40,54 @@
   </main>
 
   <script>
-    function loadMyList() {
-      const list = JSON.parse(localStorage.getItem('myList')) || [];
-      const container = document.getElementById('songList');
-      container.innerHTML = '';
+    const userId = 1; // 🔁 Make dynamic later
 
-      let totalSeconds = 0;
+    async function loadTracklist() {
+      try {
+        const response = await fetch(`/tracklist/${userId}`);
+        const songs = await response.json();
 
-      list.forEach(song => {
-        const songEntry = document.createElement('div');
-        songEntry.className = 'song-entry';
+        const container = document.getElementById('songList');
+        container.innerHTML = '';
 
-        const img = document.createElement('img');
-        img.src = song.imageUrl || 'img/logo.png';
-        img.style.width = '150px';
-        img.style.objectFit = 'cover';
+        let totalSeconds = 0;
 
-        const detailsDiv = document.createElement('div');
+        songs.forEach(song => {
+          const songEntry = document.createElement('div');
+          songEntry.className = 'song-entry';
 
-        const card = document.createElement('a');
-        card.href = `tracklist.html?songId=${song.id}`;
-        card.className = 'card';
-        card.innerHTML = `
-          <p><strong>${song.title}</strong></p>
-          <p>${song.artist}</p>
-          <p>${song.length}</p>
+          const img = document.createElement('img');
+          img.src = song.imageUrl || 'img/logo.png';
+          img.style.width = '150px';
+          img.style.objectFit = 'cover';
+
+          const detailsDiv = document.createElement('div');
+
+          const card = document.createElement('a');
+          card.href = `index.html?songId=${song.id}`;
+          card.className = 'card';
+          card.innerHTML = `
+            <p><strong>${song.title}</strong></p>
+            <p>${song.artist}</p>
+            <p>${song.length}</p>
+          `;
+
+          detailsDiv.appendChild(card);
+          songEntry.appendChild(img);
+          songEntry.appendChild(detailsDiv);
+          container.appendChild(songEntry);
+
+          totalSeconds += getSeconds(song.length);
+        });
+
+        document.querySelector('.summary').innerHTML = `
+          <h3>summary</h3>
+          <p>SONG COUNT: ${songs.length}</p>
+          <p>TOTAL TIME: ${formatTime(totalSeconds)}</p>
         `;
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Remove';
-        deleteBtn.onclick = () => {
-          const updated = list.filter(s => s.id !== song.id);
-          localStorage.setItem('myList', JSON.stringify(updated));
-          loadMyList();
-        };
-
-        detailsDiv.appendChild(card);
-        detailsDiv.appendChild(deleteBtn);
-
-        songEntry.appendChild(img);
-        songEntry.appendChild(detailsDiv);
-        container.appendChild(songEntry);
-
-        totalSeconds += getSeconds(song.length);
-      });
-
-      document.querySelector('.summary').innerHTML = `
-        <h3>summary</h3>
-        <p>SONG COUNT: ${list.length}</p>
-        <p>TOTAL TIME: ${formatTime(totalSeconds)}</p>
-      `;
+      } catch (err) {
+        console.error('Error loading tracklist:', err);
+      }
     }
 
     function getSeconds(length) {
@@ -99,21 +101,37 @@
       return `${min}:${sec.toString().padStart(2, '0')}`;
     }
 
-    document.getElementById('clearAll').onclick = () => {
-      localStorage.removeItem('myList');
-      loadMyList();
+    document.getElementById('clearAll').onclick = async () => {
+      const confirmed = confirm("Are you sure you want to clear your list?");
+      if (!confirmed) return;
+
+      try {
+        const response = await fetch(`/tracklist/${userId}`, {
+          method: 'DELETE'
+        });
+
+        const result = await response.json();
+        alert(result.message || 'Tracklist cleared!');
+        loadTracklist(); // refresh the list
+      } catch (err) {
+        console.error('Error clearing tracklist:', err);
+        alert('Failed to clear tracklist.');
+      }
     };
 
-    loadMyList();
+
+    loadTracklist();
   </script>
+
 
   <footer>
     <div class="footer-left">
       <img src="img/logo.png" />
-      <p>1717 Harrison St, San Francisco, CA 94103, USA</p>
+      <p>USA</p>
       <p>© trackstack</p>
     </div>
     <div class="footer-menu"></div>
   </footer>
 </body>
+
 </html>

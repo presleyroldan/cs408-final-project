@@ -38,7 +38,6 @@
 </head>
 
 <body>
-  <!-- Shared Header -->
   <header>
     <div class="logo-search">
       <img src="img/logo.png" alt="logo">
@@ -67,7 +66,7 @@
         <div class="rating">★★★☆☆ 4 Reviews</div>
         <div class="length">3:33</div>
         <p class="song-description">Lorem ipsum dolor sit amet...</p>
-        <button>add to list</button>
+        <button onclick="addToList()">add to list</button>
         <span>♡</span>
       </div>
     </section>
@@ -78,18 +77,15 @@
     </section>
 
     <section class="comments">
-      <h2>comments</h2>
-      <div class="comment">
-        <strong>John Doe</strong> <span>August 14, 2024</span>
-        <p>★★☆☆☆</p>
-        <p>Awesomeeee...</p>
-      </div>
-      <div class="comment">
-        <strong>John Doe</strong> <span>August 14, 2024</span>
-        <p>★★★☆☆</p>
-        <p>Blahhhhh...</p>
-      </div>
+      <h2>Comments</h2>
+      <form id="commentForm">
+        <textarea id="commentText" required placeholder="Leave a comment..."></textarea>
+        <button type="submit">Post</button>
+      </form>
+      <div id="commentList"></div>
     </section>
+
+
   </main>
   <script>
     function getQueryParam(name) {
@@ -120,6 +116,8 @@
           document.querySelector('.song-info h1').textContent = 'Song not found';
           console.error(err);
         });
+    } else {
+      document.querySelector('.song-info h1').textContent = 'No song selected';
     }
 
     console.log("songId param:", songId);
@@ -157,7 +155,95 @@
         });
     }
 
+    async function addToList() {
+      try {
+        const userId = 1;
+        const response = await fetch('/tracklist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ songId, userId })
+        });
+
+        const result = await response.json();
+        alert(result.message || 'Added to list!');
+      } catch (error) {
+        console.error('Error adding to tracklist:', error);
+        alert('Something went wrong!');
+      }
+    }
+
+    async function loadComments() {
+      const res = await fetch(`/api/comments?songId=${songId}`);
+      const comments = await res.json();
+      const container = document.getElementById('commentList');
+      container.innerHTML = '';
+
+      comments.forEach(c => {
+        const div = document.createElement('div');
+        div.innerHTML = `<strong>${c.User.username}</strong>: ${c.text}`;
+        container.appendChild(div);
+      });
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = document.getElementById('commentText').value;
+      await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, userId, songId })
+      });
+      document.getElementById('commentText').value = '';
+      loadComments();
+    });
+
+    loadComments();
+
+    const userId = 1; // Replace this with the logged-in user ID if available
+
+    async function loadComments() {
+      const res = await fetch(`/api/comments?songId=${songId}`);
+      const comments = await res.json();
+      const list = document.getElementById('commentList');
+      list.innerHTML = '';
+
+      comments.forEach(comment => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+      <strong>${comment.User.username}</strong><br>
+      <p>${comment.text}</p>
+      <hr />
+    `;
+        list.appendChild(div);
+      });
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const text = document.getElementById('commentText').value;
+
+      await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, userId, songId })
+      });
+
+      document.getElementById('commentText').value = '';
+      loadComments();
+    });
+
+    loadComments();
+
+
   </script>
 </body>
+<footer>
+  <div class="footer-left">
+    <img src="img/logo.png" />
+    <p>USA</p>
+    <p>© trackstack</p>
+  </div>
+  <div class="footer-menu"></div>
+</footer>
 
 </html>

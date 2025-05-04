@@ -22,10 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error loading songs:", error);
     }
   }
-  
+
   async function addToList(songId) {
     try {
-      const userId = 1; 
+      const userId = 1; // Temporary hardcoded user
       const response = await fetch("/tracklist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,3 +38,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error adding song:", error);
     }
   }
+  

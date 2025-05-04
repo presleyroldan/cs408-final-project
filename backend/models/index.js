@@ -4,6 +4,9 @@ const { DataTypes } = require('sequelize');
 const User = require('./User')(sequelize, DataTypes);
 const Song = require('./Song')(sequelize, DataTypes);
 
+const Comment = require('./Comment')(sequelize, DataTypes);
+
+
 User.belongsToMany(User, {
   as: 'Friends',           // This user's friens
   through: 'UserFriends',
@@ -29,4 +32,4 @@ Song.belongsToMany(User, {
   foreignKey: 'songId'
 });
 
-module.exports = { sequelize, User, Song };
+module.exports = { sequelize, User, Song, Comment };

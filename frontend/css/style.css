@@ -109,21 +109,18 @@ main {
   gap: 60px;
 }
 
-.my-songs .song-list {
-  display: flex;
-  gap: 20px;
-  height: 200px;
-  margin-bottom: 20px;
-}
-
-.my-songs button {
-  margin-top: 10px;
+#clearAll {
   padding: 10px 15px;
   background-color: #66b2ff;
   color: #1e1e1e;
   border: none;
   border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: fit-content;
+  align-self: flex-start;
 }
+
 
 .summary {
   background-color: #2a2a2a;
@@ -186,4 +183,75 @@ footer {
 
 .footer-menu li {
   margin: 5px 0;
+}
+
+.song-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  border: none;
+}
+
+.song-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.song-entry img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.card {
+  color: #66b2ff;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.song-entry button {
+  background-color: #444;
+  color: #f0f0f0;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.friend-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.friend-list div {
+  text-align: center;
+}
+
+.friend-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.friend-card {
+  text-align: center;
+  width: 80px;
+}
+.friend-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #444;
+}
+.friend-card p {
+  font-size: 14px;
+  margin-top: 5px;
 }
