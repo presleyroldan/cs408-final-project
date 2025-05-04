@@ -6,42 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrackStack</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    .card {
-      display: inline-block;
-      width: 150px;
-      height: 150px;
-      padding: 10px;
-      margin: 10px;
-      background: #1e1e1e;
-      border: 1px solid #444;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 8px;
-      box-sizing: border-box;
-      vertical-align: top;
-      transition: transform 0.2s ease;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      background: #2c2c2c;
-    }
-
-    .card p {
-      margin: 4px 0;
-      font-size: 14px;
-      line-height: 1.2;
-    }
-  </style>
 </head>
 
 <body>
   <header>
     <div class="logo-search">
       <img src="img/logo.png" alt="logo">
-      <input type="text" placeholder="Search...">
+      <input type="text" id="searchInput" placeholder="Search...">
     </div>
     <nav>
       <a href="index.html">home</a>
@@ -55,11 +26,6 @@
     <section class="song-overview">
       <div class="song-image">
         <img src="img/logo.png" alt="song cover">
-        <div class="thumbnails">
-          <img src="img/logo.png">
-          <img src="img/logo.png">
-          <img src="img/logo.png">
-        </div>
       </div>
       <div class="song-info">
         <h1>song title</h1>
@@ -76,14 +42,16 @@
       <div class="card-list" id="similar-songs"></div>
     </section>
 
-    <section class="comments">
+
+    <!-- This would be cool to implement in the future -->
+    <!-- <section class="comments">
       <h2>Comments</h2>
       <form id="commentForm">
         <textarea id="commentText" required placeholder="Leave a comment..."></textarea>
         <button type="submit">Post</button>
       </form>
       <div id="commentList"></div>
-    </section>
+    </section> -->
 
 
   </main>
@@ -236,6 +204,8 @@
 
 
   </script>
+  <script src="js/search.js"></script>
+
 </body>
 <footer>
   <div class="footer-left">

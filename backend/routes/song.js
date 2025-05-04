@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Song } = require('../models');
+const { Op } = require('sequelize');
+
 
 // GET all songs
 router.get('/', async (req, res) => {
@@ -28,6 +30,30 @@ router.get('/:id', async (req, res) => {
   const song = await Song.findByPk(req.params.id);
   if (song) res.json(song);
   else res.status(404).send('Not found');
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const q = req.query.q;
+    let songs;
+
+    if (q) {
+      songs = await Song.findAll({
+        where: {
+          title: {
+            [Op.like]: `%${q}%`
+          }
+        }
+      });
+    } else {
+      songs = await Song.findAll();
+    }
+
+    res.json(songs);
+  } catch (err) {
+    console.error('❌ Song fetch error:', err);
+    res.status(500).json({ error: 'Could not fetch songs' });
+  }
 });
 
 
