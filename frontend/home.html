@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to TrackStack</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #66b2ff;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #66b2ff;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #ccc;
+    }
+
+    .cta-button {
+      padding: 15px 30px;
+      font-size: 1rem;
+      background-color: #66b2ff;
+      color: #1e1e1e;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #3399ff;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .cta-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TrackStack</div>
+    <nav>
+      <a href="browse.html">Browse</a>
+      <a href="tracklist.html">My List</a>
+      <a href="index.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <div>
+      <h1>Your Music, Organized.</h1>
+      <p>Create your tracklist, discover new songs, and see what your friends are vibing to — all in one place.</p>
+      <button class="cta-button" onclick="window.location.href='browse.html'">Get Started</button>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 TrackStack.
+  </footer>
+</body>
+</html>

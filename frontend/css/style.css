@@ -1,17 +1,17 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #1e1e1e;
-  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header, footer {
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
-  background-color: #2a2a2a;
 }
 
 header .logo-search {
@@ -30,10 +30,11 @@ header input[type="text"] {
 }
 
 nav a {
-  margin: 0 10px;
+  color: white;
   text-decoration: none;
-  color: #66b2ff;
-  font-weight: bold;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 .my-list {
