@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function addToList(songId) {
     try {
-      const userId = 1; // Temporary hardcoded user
+      const userId = localStorage.getItem('userId');
       const response = await fetch("/tracklist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

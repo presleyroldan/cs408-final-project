@@ -3,33 +3,34 @@ const { DataTypes } = require('sequelize');
 
 const User = require('./User')(sequelize, DataTypes);
 const Song = require('./Song')(sequelize, DataTypes);
-
 const Comment = require('./Comment')(sequelize, DataTypes);
 
+// Many-to-many: Users <-> Songs (Tracklist)
+User.belongsToMany(Song, {
+  through: 'Tracklist',
+  foreignKey: 'userId',
+  otherKey: 'songId'
+});
 
+Song.belongsToMany(User, {
+  through: 'Tracklist',
+  foreignKey: 'songId',
+  otherKey: 'userId'
+});
+
+// Many-to-many: Users <-> Users (Friends)
 User.belongsToMany(User, {
-  as: 'Friends',           // This user's friens
+  as: 'Friends',
   through: 'UserFriends',
   foreignKey: 'userId',
   otherKey: 'friendId'
 });
 
 User.belongsToMany(User, {
-  as: 'FriendOf',          // People who added this user as a friend 
-  through: 'UserFriends',  // These need to be different or weird stuff happens
+  as: 'FriendOf',
+  through: 'UserFriends',
   foreignKey: 'friendId',
   otherKey: 'userId'
-});
-
-
-User.belongsToMany(Song, {
-  through: 'Tracklist',
-  foreignKey: 'userId'
-});
-
-Song.belongsToMany(User, {
-  through: 'Tracklist',
-  foreignKey: 'songId'
 });
 
 module.exports = { sequelize, User, Song, Comment };

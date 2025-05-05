@@ -15,7 +15,7 @@
             <input type="text" placeholder="Search..." />
         </div>
         <nav>
-            <a href="index.html">home</a>
+            <a href="song.html">home</a>
             <a href="about.html">about</a>
             <a href="browse.html">browse</a>
             <a href="tracklist.html" class="my-list">my list</a>
@@ -66,7 +66,7 @@
                 songs.forEach(song => {
                     const card = document.createElement('a');
                     card.className = 'card';
-                    card.href = `index.html?songId=${song.id}`;
+                    card.href = `song.html?songId=${song.id}`;
                     card.innerHTML = `
             <p>${song.title}</p>
             <p>${song.artist}</p>
@@ -79,8 +79,8 @@
             }
         });
         const userId = new URLSearchParams(window.location.search).get("userId");
-        const loggedInUserId = 1; // Replace with actual logged-in user ID
-
+        const loggedInUserId = localStorage.getItem('userId');
+        
         async function loadUserDetails() {
             const res = await fetch(`/api/users/${userId}`);
             const user = await res.json();
@@ -107,7 +107,7 @@
 
         document.getElementById('addFriendBtn').addEventListener('click', async () => {
             try {
-                const res = await fetch(`/api/users/${loggedInUserId}/friends`, {
+                const res = await fetch(`/api/users/${userId}/friends`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ friendId: userId })

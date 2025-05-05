@@ -15,7 +15,7 @@
       <input type="text" id="searchInput" placeholder="Search...">
     </div>
     <nav>
-      <a href="index.html">home</a>
+      <a href="song.html">home</a>
       <a href="about.html">about</a>
       <a href="browse.html">browse</a>
       <a href="tracklist.html" class="my-list">my list</a>
@@ -108,7 +108,7 @@
             .forEach(song => {
               const a = document.createElement('a');
               a.className = 'card';
-              a.href = `index.html?songId=${song.id}`;
+              a.href = `song.html?songId=${song.id}`;
               a.innerHTML = `
             <p>${song.title}</p>
             <p>${song.artist || 'Unknown Artist'}</p>
@@ -125,7 +125,7 @@
 
     async function addToList() {
       try {
-        const userId = 1;
+        const userId = localStorage.getItem('userId');
         const response = await fetch('/tracklist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -167,8 +167,7 @@
 
     loadComments();
 
-    const userId = 1; // Replace this with the logged-in user ID if available
-
+    const userId = localStorage.getItem('userId');
     async function loadComments() {
       const res = await fetch(`/api/comments?songId=${songId}`);
       const comments = await res.json();

@@ -18,14 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Login response:', data);
   
         if (res.ok) {
+          localStorage.setItem('userId', data.userId);  
           window.location.href = 'browse.html';
         } else {
           alert(data.error);
         }
       } catch (err) {
         console.error('Login failed:', err);
-        alert('Something went wrong. Check the console for details.');
-      
       }
     });
   });

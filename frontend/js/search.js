@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         songs.forEach(song => {
           const card = document.createElement('a');
-          card.href = `index.html?songId=${song.id}`;
+          card.href = `song.html?songId=${song.id}`;
           card.className = 'card';
           card.innerHTML = `
             <p>${song.title}</p>

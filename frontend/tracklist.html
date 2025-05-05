@@ -15,7 +15,7 @@
       <input type="text" placeholder="Search..." />
     </div>
     <nav>
-      <a href="index.html">home</a>
+      <a href="song.html">home</a>
       <a href="about.html">about</a>
       <a href="browse.html">browse</a>
       <a href="tracklist.html" class="my-list">my list</a>
@@ -29,9 +29,8 @@
       <div class="song-list" id="songList"></div>
     </section>
 
-    
-    <button id="clearAll">Clear All</button>
-    
+    <button id="clearAll" style="display: none;">Clear All</button>
+
     <section class="summary">
       <h3>summary</h3>
       <p>SONG COUNT: 0</p>
@@ -40,11 +39,23 @@
   </main>
 
   <script>
-    const userId = 1; // 🔁 Make dynamic later
+    const urlParams = new URLSearchParams(window.location.search);
+    const viewingUserId = urlParams.get('userId') || localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId');
+
+    if (!viewingUserId) {
+      alert('No user ID found. Redirecting to login.');
+      window.location.href = 'index.html';
+    }
+
+    // Show the "Clear All" button only if viewing your own list
+    if (viewingUserId === userId) {
+      document.getElementById('clearAll').style.display = 'inline-block';
+    }
 
     async function loadTracklist() {
       try {
-        const response = await fetch(`/tracklist/${userId}`);
+        const response = await fetch(`/tracklist/${viewingUserId}`);
         const songs = await response.json();
 
         const container = document.getElementById('songList');
@@ -64,7 +75,7 @@
           const detailsDiv = document.createElement('div');
 
           const card = document.createElement('a');
-          card.href = `index.html?songId=${song.id}`;
+          card.href = `song.html?songId=${song.id}`;
           card.className = 'card';
           card.innerHTML = `
             <p><strong>${song.title}</strong></p>
@@ -106,7 +117,7 @@
       if (!confirmed) return;
 
       try {
-        const response = await fetch(`/tracklist/${userId}`, {
+        const response = await fetch(`/tracklist/${viewingUserId}`, {
           method: 'DELETE'
         });
 
@@ -119,10 +130,8 @@
       }
     };
 
-
     loadTracklist();
   </script>
-
 
   <footer>
     <div class="footer-left">

@@ -13,7 +13,7 @@
       <input type="text" placeholder="Search..." />
     </div>
     <nav>
-      <a href="index.html">home</a>
+      <a href="song.html">home</a>
       <a href="about.html">about</a>
       <a href="browse.html">browse</a>
       <a href="tracklist.html" class="my-list">my list</a>
@@ -42,7 +42,7 @@
         filtered.forEach(song => {
           const card = document.createElement('a');
           card.className = 'card';
-          card.href = `index.html?songId=${song.id}`;
+          card.href = `song.html?songId=${song.id}`;
           card.innerHTML = `
             <p>${song.title}</p>
             <p>${song.artist}</p>
