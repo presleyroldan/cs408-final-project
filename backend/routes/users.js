@@ -45,5 +45,29 @@ router.post('/:userId/friends', async (req, res) => {
   }
 });
 
+// backend/routes/users.js or similar
+
+router.get('/:userId/friends', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findByPk(userId, {
+      include: {
+        model: User,
+        as: 'Friends', 
+        attributes: ['id', 'username']
+      }
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user.Friends);
+  } catch (err) {
+    console.error('Error fetching friends:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 module.exports = router;
