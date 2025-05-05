@@ -4,7 +4,7 @@ const { User } = require('../models');
 
 // POST /api/login — plain-text version
 router.post('/', async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     const user = await User.findOne({ where: { username } });

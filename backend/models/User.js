@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     password: DataTypes.STRING,
-    profilePic: DataTypes.STRING 
+    profilePic: DataTypes.STRING
   });
 
   return User;

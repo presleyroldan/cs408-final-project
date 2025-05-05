@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ error: 'User or song not found' });
     }
 
-    await user.addSong(song); 
+    await user.addSong(song);
     res.status(200).json({ message: `Added '${song.title}' to user ${user.username}'s tracklist.` });
   } catch (err) {
     console.error('Error adding to tracklist:', err);
@@ -35,7 +35,7 @@ router.get('/:userId', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json(user.Songs); 
+    res.json(user.Songs);
   } catch (err) {
     console.error('Error fetching tracklist:', err);
     res.status(500).json({ error: 'Could not fetch tracklist' });
@@ -53,7 +53,7 @@ router.delete('/:userId', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    await user.setSongs([]); 
+    await user.setSongs([]);
     res.status(200).json({ message: `Tracklist cleared for user ${userId}` });
   } catch (err) {
     console.error('Error clearing tracklist:', err);

@@ -36,7 +36,7 @@ router.post('/:userId/friends', async (req, res) => {
       return res.status(404).json({ error: 'User or friend not found' });
     }
 
-    await user.addFriend(friend); 
+    await user.addFriend(friend);
 
     res.json({ message: 'Friend added!' });
   } catch (err) {
@@ -53,7 +53,7 @@ router.get('/:userId/friends', async (req, res) => {
     const user = await User.findByPk(userId, {
       include: {
         model: User,
-        as: 'Friends', 
+        as: 'Friends',
         attributes: ['id', 'username']
       }
     });
