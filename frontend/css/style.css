@@ -7,11 +7,24 @@ body {
   min-height: 100vh;
 }
 
-header, footer {
+header {
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+footer {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #66b2ff;
 }
 
 header .logo-search {

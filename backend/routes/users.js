@@ -45,8 +45,6 @@ router.post('/:userId/friends', async (req, res) => {
   }
 });
 
-// backend/routes/users.js or similar
-
 router.get('/:userId/friends', async (req, res) => {
   const { userId } = req.params;
   try {
@@ -65,6 +63,23 @@ router.get('/:userId/friends', async (req, res) => {
     res.json(user.Friends);
   } catch (err) {
     console.error('Error fetching friends:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// post users
+router.post('/', async (req, res) => {
+  const { firstName, username, password } = req.body;
+  try {
+    const existingUser = await User.findOne({ where: { username } });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username already taken' });
+    }
+
+    const newUser = await User.create({ firstName, username, password }); // maybe add hash later?
+    res.status(201).json(newUser);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
 });

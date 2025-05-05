@@ -14,7 +14,7 @@ document.getElementById('signupForm').addEventListener('submit', async e => {
 
     if (res.ok) {
         alert('Account created!');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     } else {
         const err = await res.json();
         alert('Error: ' + err.error);
